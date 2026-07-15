@@ -4,6 +4,7 @@ import { MessageSquare } from 'lucide-react';
 import Loading from '../components/Loading';
 import ThemeToggle from '../components/ThemeToggle';
 import ProfileDropdown from '../components/ProfileDropdown';
+import logoUrl from '../assets/logo.svg';
 
 /**
  * Main Layout wrapper for authenticated pages.
@@ -32,7 +33,7 @@ const MainLayout = () => {
           
           {/* Brand Logo (Left) */}
           <div className="flex items-center gap-2.5">
-            <img src="/logo.svg" className="w-9 h-9 object-contain" alt="ChitChat Logo" />
+            <img src={logoUrl} className="w-9 h-9 object-contain" alt="ChitChat Logo" />
             <span className="text-lg font-bold bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}>
               ChitChat
             </span>

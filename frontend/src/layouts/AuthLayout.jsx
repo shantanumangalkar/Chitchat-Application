@@ -2,6 +2,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { MessageSquare, Shield, Zap } from 'lucide-react';
 import Loading from '../components/Loading';
+import logoUrl from '../assets/logo.svg';
 
 /**
  * Shared layout for Auth pages (Login, Register).
@@ -29,7 +30,7 @@ const AuthLayout = () => {
       <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-16 relative backdrop-blur-3xl z-10 select-none" style={{ borderRight: '1px solid var(--border-secondary)', backgroundColor: 'color-mix(in srgb, var(--bg-primary) 40%, transparent)' }}>
         {/* Logo/Brand */}
         <div className="flex items-center gap-2.5">
-          <img src="/logo.svg" className="w-10 h-10 object-contain" alt="ChitChat Logo" />
+          <img src={logoUrl} className="w-10 h-10 object-contain" alt="ChitChat Logo" />
           <span className="text-xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}>
             ChitChat
           </span>
@@ -86,7 +87,7 @@ const AuthLayout = () => {
         <div className="w-full max-w-md flex flex-col gap-6">
           {/* Logo showing on mobile */}
           <div className="flex lg:hidden items-center justify-center gap-2.5 mb-2">
-            <img src="/logo.svg" className="w-10 h-10 object-contain" alt="ChitChat Logo" />
+            <img src={logoUrl} className="w-10 h-10 object-contain" alt="ChitChat Logo" />
             <span className="text-xl font-bold bg-clip-text text-transparent" style={{ backgroundImage: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}>
               ChitChat
             </span>
