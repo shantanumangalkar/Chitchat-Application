@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" width="100%" height="100%">
+  <g style="isolation: isolate;">
+    <!-- Pink bubble (left & slightly higher) -->
+    <path d="M 75,18 C 98.2,18 117,36.8 117,60 C 117,83.2 98.2,102 75,102 C 67.5,102 60.5,100 54.5,96.5 L 39.5,108.5 C 37.5,110 35,108.5 35.5,106 L 39.5,90 C 35,82 33,71.5 33,60 C 33,36.8 51.8,18 75,18 Z" fill="#DE1D69" />
+    
+    <!-- White dots in Pink bubble -->
+    <circle cx="63" cy="60" r="4.5" fill="#FFFFFF" />
+    <circle cx="75" cy="60" r="4.5" fill="#FFFFFF" />
+    <circle cx="87" cy="60" r="4.5" fill="#FFFFFF" />
+
+    <!-- Pink dot (bottom left) -->
+    <circle cx="58" cy="120" r="9" fill="#DE1D69" />
+
+    <!-- Purple bubble (right & slightly lower) -->
+    <path d="M 125,53 C 148.2,53 167,71.8 167,95 C 167,106.5 165,117 160.5,125 L 164.5,141 C 165,143.5 162.5,145 160.5,143.5 L 145.5,131.5 C 139.5,135 132.5,137 125,137 C 101.8,137 83,118.2 83,95 C 83,71.8 101.8,53 125,53 Z" fill="#7E3FF2" style="mix-blend-mode: multiply; opacity: 0.85;" />
+    
+    <!-- White dots in Purple bubble -->
+    <circle cx="113" cy="95" r="4.5" fill="#FFFFFF" />
+    <circle cx="125" cy="95" r="4.5" fill="#FFFFFF" />
+    <circle cx="137" cy="95" r="4.5" fill="#FFFFFF" />
+
+    <!-- Purple dot (top right) -->
+    <circle cx="142" cy="35" r="9" fill="#7E3FF2" />
+  </g>
+</svg>

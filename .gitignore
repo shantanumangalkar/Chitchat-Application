@@ -1,0 +1,25 @@
+# IDE / OS
+.idea/
+.vscode/
+.vite/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+Thumbs.db
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env.local
+frontend/.env.production.local
+frontend/.env.development.local
+
+# Java / Backend
+backend/target/
+backend/bin/
+backend/.settings/
+backend/.classpath
+backend/.project
