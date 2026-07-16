@@ -149,7 +149,7 @@ public class RoomService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         List<RoomMember> roomMembers =
-                roomMemberRepository.findAllByUser(user);
+                roomMemberRepository.findAllByUserWithRoomAndOwner(user);
 
         return roomMembers.stream()
                 .map(roomMember -> {
@@ -179,7 +179,7 @@ public class RoomService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Find room
-        Room room = roomRepository.findByRoomCode(roomCode)
+        Room room = roomRepository.findByRoomCodeWithCreatedBy(roomCode)
                 .orElseThrow(() ->
                         new RoomNotFoundException("Room not found"));
 
@@ -211,7 +211,7 @@ public class RoomService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Room room = roomRepository.findByRoomCode(roomCode)
+        Room room = roomRepository.findByRoomCodeWithCreatedBy(roomCode)
                 .orElseThrow(() ->
                         new RoomNotFoundException("Room not found"));
 
@@ -269,7 +269,7 @@ public class RoomService {
             System.err.println("Failed to auto mark messages as seen: " + e.getMessage());
         }
 
-        List<Message> messages = messageRepository.findByRoomOrderBySentAtAsc(room);
+        List<Message> messages = messageRepository.findByRoomWithSenderAndParentOrderBySentAtAsc(room);
 
         return messages.stream()
                 .map(msg -> {
@@ -302,16 +302,13 @@ public class RoomService {
             throw new AccessDeniedException("You are not a member of this room.");
         }
 
-        List<Message> messages = messageRepository.findByRoomOrderBySentAtAsc(room);
+        List<Message> unseenMessages = messageRepository.findUnseenMessages(room, user);
         boolean updated = false;
 
-        for (Message msg : messages) {
-            // If the message is not sent by current user and current user has not seen it yet
-            if (!msg.getSender().getId().equals(user.getId()) && !msg.getSeenBy().contains(user)) {
-                msg.getSeenBy().add(user);
-                messageRepository.save(msg);
-                updated = true;
-            }
+        for (Message msg : unseenMessages) {
+            msg.getSeenBy().add(user);
+            messageRepository.save(msg);
+            updated = true;
         }
 
         if (updated) {
@@ -334,7 +331,7 @@ public class RoomService {
     public void destroyRoom(String roomCode, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Room room = roomRepository.findByRoomCode(roomCode)
+        Room room = roomRepository.findByRoomCodeWithCreatedBy(roomCode)
                 .orElseThrow(() -> new RoomNotFoundException("Room not found"));
 
         if (!room.getCreatedBy().getId().equals(user.getId())) {

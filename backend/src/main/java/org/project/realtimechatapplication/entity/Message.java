@@ -7,7 +7,9 @@ import org.project.realtimechatapplication.enums.MessageType;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "messages")
+@Table(name = "messages", indexes = {
+        @Index(name = "idx_room_sent_at", columnList = "room_id, sent_at")
+})
 @Getter
 @Setter
 @NoArgsConstructor

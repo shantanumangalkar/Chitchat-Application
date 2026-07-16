@@ -18,6 +18,12 @@ public interface RoomMemberRepository extends JpaRepository<RoomMember, Long> {
 
     List<RoomMember> findAllByUser(User user);
 
+    @org.springframework.data.jpa.repository.Query("SELECT rm FROM RoomMember rm " +
+            "JOIN FETCH rm.room r " +
+            "JOIN FETCH r.createdBy " +
+            "WHERE rm.user = :user")
+    List<RoomMember> findAllByUserWithRoomAndOwner(@org.springframework.data.repository.query.Param("user") User user);
+
     Optional<RoomMember> findByRoomAndUser(Room room, User user);
 
     long countByRoom(Room room);

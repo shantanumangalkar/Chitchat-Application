@@ -12,5 +12,10 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     Optional<Room> findByRoomCode(String roomCode);
 
+    @org.springframework.data.jpa.repository.Query("SELECT r FROM Room r " +
+            "JOIN FETCH r.createdBy " +
+            "WHERE r.roomCode = :roomCode")
+    Optional<Room> findByRoomCodeWithCreatedBy(@org.springframework.data.repository.query.Param("roomCode") String roomCode);
+
     void delete(Room room);
 }
