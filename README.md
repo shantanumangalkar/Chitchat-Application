@@ -27,7 +27,7 @@ ChiChat is a premium, real-time collaboration environment featuring room-based c
 - **Security**: Spring Security & JWT
 - **Real-Time API**: Spring WebSockets (STOMP protocol)
 - **Database ORM**: Spring Data JPA / Hibernate
-- **Database**: MySQL (e.g. hosted on Aiven)
+- **Database**: MySQL (e.g. hosted on TiDB Cloud Serverless)
 
 ---
 
@@ -71,8 +71,8 @@ This project is configured to be fully **deploy-ready** on platforms like **Rend
 To configure your production services, add these variables in your deployment dashboard:
 
 #### Backend (Render Web Service using Docker)
-* **`SPRING_DATASOURCE_URL`**: `jdbc:mysql://<host>:<port>/<db_name>?useSSL=true&requireSSL=true&verifyServerCertificate=false`
-* **`SPRING_DATASOURCE_USERNAME`**: Your production database user (e.g. `avnadmin`)
+* **`SPRING_DATASOURCE_URL`**: `jdbc:mysql://<host>:<port>/<db_name>?sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3`
+* **`SPRING_DATASOURCE_USERNAME`**: Your TiDB Cloud username (e.g. `<prefix>.root`)
 * **`SPRING_DATASOURCE_PASSWORD`**: Your database password
 * **`JWT_SECRET`**: A custom 256-bit secret key for JWT session validation
 * **`ALLOWED_ORIGINS`**: The URL of your deployed frontend (e.g. `https://chichat.onrender.com`)
