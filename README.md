@@ -1,6 +1,6 @@
-# 💬 ChiChat Application
+# 💬 ChitChat Application
 
-ChiChat is a premium, real-time collaboration environment featuring room-based communication, end-to-end encrypted messaging, and a modern, responsive layout. It is built as a monorepo consisting of a Spring Boot backend and a React + Vite frontend.
+ChitChat is a premium, real-time collaboration environment featuring room-based communication, end-to-end encrypted messaging, and a modern, responsive layout. It is built as a monorepo consisting of a Spring Boot backend and a React + Vite frontend.
 
 ---
 
@@ -27,7 +27,7 @@ ChiChat is a premium, real-time collaboration environment featuring room-based c
 - **Security**: Spring Security & JWT
 - **Real-Time API**: Spring WebSockets (STOMP protocol)
 - **Database ORM**: Spring Data JPA / Hibernate
-- **Database**: MySQL (e.g. hosted on TiDB Cloud Serverless)
+- **Database**: PostgreSQL (hosted on [Supabase](https://supabase.com))
 
 ---
 
@@ -36,24 +36,33 @@ ChiChat is a premium, real-time collaboration environment featuring room-based c
 ### Prerequisites
 - **Java JDK**: version 21+
 - **Node.js**: version 20+
-- **MySQL Server**: running locally
+- **Supabase Account**: Create a free project at [supabase.com](https://supabase.com)
 
-### 1. Set Up the Database
-Create a MySQL database named `chatapp`:
-```sql
-CREATE DATABASE chatapp;
+### 1. Set Up Environment Variables
+Copy the example env file and fill in your Supabase credentials:
+```bash
+cd backend
+cp .env.example .env
 ```
 
+Edit `backend/.env` with your values:
+```env
+SPRING_DATASOURCE_USERNAME=postgres.your-project-ref
+SPRING_DATASOURCE_PASSWORD=your_supabase_password
+SPRING_DATASOURCE_URL=jdbc:postgresql://aws-0-region.pooler.supabase.com:6543/postgres?sslmode=require
+JWT_SECRET=your_base64_encoded_jwt_secret
+```
+
+> 💡 You can find your connection details in **Supabase Dashboard → Settings → Database → Connection Pooling**.
+
 ### 2. Run the Backend
-Navigate to the `backend` folder and run the Maven wrapper command:
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
-*The backend will boot up at `http://localhost:8080` and automatically create the required database tables.*
+*The backend will boot up at `http://localhost:8080` and automatically create the required database tables via Hibernate.*
 
 ### 3. Run the Frontend
-Navigate to the `frontend` folder, install the packages, and start Vite:
 ```bash
 cd frontend
 npm install
@@ -67,16 +76,19 @@ npm run dev
 
 This project is configured to be fully **deploy-ready** on platforms like **Render** by parsing production configurations dynamically from environment variables.
 
-### Environment Variables List
-To configure your production services, add these variables in your deployment dashboard:
+### Environment Variables
 
 #### Backend (Render Web Service using Docker)
-* **`SPRING_DATASOURCE_URL`**: `jdbc:mysql://<host>:<port>/<db_name>?sslMode=VERIFY_IDENTITY&enabledTLSProtocols=TLSv1.2,TLSv1.3`
-* **`SPRING_DATASOURCE_USERNAME`**: Your TiDB Cloud username (e.g. `<prefix>.root`)
-* **`SPRING_DATASOURCE_PASSWORD`**: Your database password
-* **`JWT_SECRET`**: A custom 256-bit secret key for JWT session validation
-* **`ALLOWED_ORIGINS`**: The URL of your deployed frontend (e.g. `https://chichat.onrender.com`)
-* **`PORT`**: Set automatically by Render (maps to Spring Boot host port)
+| Variable | Description | Example |
+|---|---|---|
+| `SPRING_DATASOURCE_URL` | Supabase PostgreSQL pooler JDBC URL | `jdbc:postgresql://aws-0-region.pooler.supabase.com:6543/postgres?sslmode=require` |
+| `SPRING_DATASOURCE_USERNAME` | Supabase pooler username | `postgres.your-project-ref` |
+| `SPRING_DATASOURCE_PASSWORD` | Your Supabase database password | |
+| `JWT_SECRET` | A base64-encoded 256-bit secret key for JWT | |
+| `ALLOWED_ORIGINS` | Your deployed frontend URL | `https://chichat.onrender.com` |
+| `PORT` | Set automatically by Render | |
 
 #### Frontend (Render Static Site)
-* **`VITE_API_BASE_URL`**: The live URL of your deployed backend service (e.g. `https://chichat-backend.onrender.com`)
+| Variable | Description | Example |
+|---|---|---|
+| `VITE_API_BASE_URL` | Your deployed backend URL | `https://chichat-backend.onrender.com` |
