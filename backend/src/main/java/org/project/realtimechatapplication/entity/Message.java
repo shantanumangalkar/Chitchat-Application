@@ -38,8 +38,7 @@ public class Message {
     /**
      * Encrypted Message
      */
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String encryptedMessage;
 
     private LocalDateTime sentAt;
