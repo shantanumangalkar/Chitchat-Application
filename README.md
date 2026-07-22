@@ -55,14 +55,19 @@ JWT_SECRET=your_base64_encoded_jwt_secret
 
 > 💡 You can find your connection details in **Supabase Dashboard → Settings → Database → Connection Pooling**.
 
-### 2. Run the Backend
+### 2. Secure Supabase Tables (Required)
+By default, Supabase exposes tables in the `public` schema via HTTP REST API. Since this project uses a custom Spring Boot API backend, enable Row Level Security (RLS) to block unauthorized HTTP access:
+1. Open your **Supabase Dashboard** → **SQL Editor**.
+2. Run the SQL script found in [`backend/src/main/resources/supabase-security-fix.sql`](file:///c:/Users/ASUS/Desktop/real_time_chatApp_frontend/backend/src/main/resources/supabase-security-fix.sql).
+
+### 3. Run the Backend
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 *The backend will boot up at `http://localhost:8080` and automatically create the required database tables via Hibernate.*
 
-### 3. Run the Frontend
+### 4. Run the Frontend
 ```bash
 cd frontend
 npm install

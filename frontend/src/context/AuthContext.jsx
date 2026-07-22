@@ -31,16 +31,8 @@ export const AuthProvider = ({ children }) => {
         } else {
           // Token is valid, decode and load user details
           const storedUser = getStoredUser();
-          if (storedUser && storedUser.username === storedUser.email) {
-            // Old session DTO format detected, clear session to sync real username
-            removeToken();
-            removeStoredUser();
-            setUser(null);
-            setTokenState(null);
-          } else {
-            setUser(storedUser || getUserFromToken(storedToken));
-            setTokenState(storedToken);
-          }
+          setUser(storedUser || getUserFromToken(storedToken));
+          setTokenState(storedToken);
         }
       }
       setLoading(false);

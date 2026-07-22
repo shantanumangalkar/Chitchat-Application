@@ -56,6 +56,7 @@ public class Message {
     private Message parent;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @org.hibernate.annotations.BatchSize(size = 100)
     @JoinTable(
             name = "message_seen",
             joinColumns = @JoinColumn(name = "message_id"),
