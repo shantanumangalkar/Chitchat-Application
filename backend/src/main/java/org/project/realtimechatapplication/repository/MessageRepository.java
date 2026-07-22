@@ -22,8 +22,8 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     @org.springframework.data.jpa.repository.Query("SELECT m FROM Message m " +
             "WHERE m.room = :room " +
-            "AND m.sender <> :user " +
-            "AND :user NOT MEMBER OF m.seenBy")
+            "AND m.sender != :user " +
+            "AND NOT EXISTS (SELECT 1 FROM m.seenBy u WHERE u = :user)")
     List<Message> findUnseenMessages(
             @org.springframework.data.repository.query.Param("room") Room room,
             @org.springframework.data.repository.query.Param("user") User user);
